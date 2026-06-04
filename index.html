@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Online</title>
+    <style>
+        /* Mengatur agar halaman memenuhi seluruh layar tanpa margin */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Mencegah munculnya scroll ganda */
+            background-color: #f4f4f9;
+        }
+        
+        /* Mengatur iframe agar tampil penuh */
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* Pesan fallback jika iframe tidak didukung atau diblokir */
+        .fallback {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+    <iframe 
+        src="https://script.google.com/macros/s/AKfycby4XQXe8ZG54mR-KOxnHd5sBbUyIDhvWd_JdNWQ-wT2Gx7eHppzOyr0r-oeWvI2_H5f/exec" 
+        allowfullscreen>
+    </iframe>
+
+    <div class="fallback">
+        <p>Jika kuis tidak tampil, silakan buka melalui tombol di bawah ini:</p>
+        <a href="https://script.google.com/macros/s/AKfycby4XQXe8ZG54mR-KOxnHd5sBbUyIDhvWd_JdNWQ-wT2Gx7eHppzOyr0r-oeWvI2_H5f/exec" target="_blank" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">Buka Kuis</a>
+    </div>
+
+</body>
+</html>
