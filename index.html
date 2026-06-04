@@ -3,46 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kuis Online</title>
+    <title>Ruang Belajar Interaktif</title>
     <style>
-        /* Mengatur agar halaman memenuhi seluruh layar tanpa margin */
-        body, html {
+        /* Gaya Dasar */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden; /* Mencegah munculnya scroll ganda */
-            background-color: #f4f4f9;
+            background-color: #f0f2f5;
+            color: #333;
         }
-        
-        /* Mengatur iframe agar tampil penuh */
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+
+        /* Header */
+        header {
+            background-color: #1a252f;
+            color: white;
+            padding: 20px 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        header h1 { margin: 0; font-size: 24px; }
+        header p { margin: 5px 0 0 0; font-size: 14px; color: #bdc3c7; }
+
+        /* Layout Utama - Flexbox */
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 20px auto;
+            gap: 20px;
+            padding: 0 15px;
+            min-height: 85vh;
+        }
+
+        /* Sidebar Kiri (Lebar 25%) */
+        .sidebar {
+            flex: 25%;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Desain Menu di Sidebar */
+        .sidebar h3 {
+            padding: 0 20px;
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 15px;
+        }
+        .menu-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #34495e;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        .menu-item:hover {
+            background-color: #f8f9fa;
+            color: #3498db;
+        }
+        /* Penanda menu yang sedang aktif */
+        .menu-item.active {
+            background-color: #ecf0f1;
+            border-left: 4px solid #3498db;
+            color: #2980b9;
+        }
+
+        /* Area Konten Kanan (Lebar 75%) */
+        .main-content {
+            flex: 75%;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            padding: 30px;
+        }
+
+        /* Menyembunyikan semua konten secara default */
+        .content-section {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        /* Menampilkan konten yang aktif */
+        .content-section.active-content {
             display: block;
         }
 
-        /* Pesan fallback jika iframe tidak didukung atau diblokir */
-        .fallback {
-            display: none;
-            text-align: center;
-            padding: 20px;
-            font-family: Arial, sans-serif;
+        /* Animasi saat pindah halaman */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Pengaturan iframe Kuis */
+        .kuis-iframe {
+            width: 100%;
+            height: 800px;
+            border: none;
+            border-radius: 8px;
+        }
+
+        /* Responsif untuk HP: Sidebar pindah ke atas */
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .sidebar, .main-content { flex: 100%; }
+            .sidebar { padding: 15px 0; }
+            .menu-item { border-left: none; border-bottom: 2px solid transparent; }
+            .menu-item.active { border-left: none; border-bottom: 2px solid #3498db; }
         }
     </style>
 </head>
 <body>
 
-    <iframe 
-        src="https://script.google.com/macros/s/AKfycby4XQXe8ZG54mR-KOxnHd5sBbUyIDhvWd_JdNWQ-wT2Gx7eHppzOyr0r-oeWvI2_H5f/exec" 
-        allowfullscreen>
-    </iframe>
+    <header>
+        <h1>Ruang Belajar Interaktif</h1>
+        <p>Eksplorasi Pengetahuan Tanpa Batas</p>
+    </header>
 
-    <div class="fallback">
-        <p>Jika kuis tidak tampil, silakan buka melalui tombol di bawah ini:</p>
-        <a href="https://script.google.com/macros/s/AKfycby4XQXe8ZG54mR-KOxnHd5sBbUyIDhvWd_JdNWQ-wT2Gx7eHppzOyr0r-oeWvI2_H5f/exec" target="_blank" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">Buka Kuis</a>
+    <div class="container">
+        <aside class="sidebar">
+            <h3>Menu Navigasi</h3>
+            
+            <div class="menu-item active" onclick="bukaHalaman('beranda', this)">🏠 Beranda</div>
+            <div class="menu-item" onclick="bukaHalaman('artikel', this)">📖 Artikel & Materi</div>
+            <div class="menu-item" onclick="bukaHalaman('kuis', this)">📝 Kuis Interaktif</div>
+            <div class="menu-item" onclick="bukaHalaman('tentang', this)">ℹ️ Tentang Kami</div>
+        </aside>
+
+        <main class="main-content">
+            
+            <div id="beranda" class="content-section active-content">
+                <h2>Selamat Datang di Ruang Belajar!</h2>
+                <p>Silakan gunakan menu di sebelah kiri untuk menavigasi website ini.</p>
+                <p>Website ini dirancang sebagai simulasi portal edukasi modern. Tanpa perlu memuat ulang (reload) halaman, kamu bisa berpindah-pindah dari membaca artikel hingga mengerjakan kuis secara instan.</p>
+                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ilustrasi Belajar" style="width:100%; border-radius:8px; margin-top:20px;">
+            </div>
+
+            <div id="artikel" class="content-section">
+                <h2>Artikel & Materi</h2>
+                <p>Di sini kamu bisa menambahkan berbagai paragraf untuk materi belajar pengunjungmu.</p>
+                <ul>
+                    <li><strong>Materi 1:</strong> Sejarah Kemerdekaan Indonesia.</li>
+                    <li><strong>Materi 2:</strong> Pengenalan Tata Surya dan Alam Semesta.</li>
+                    <li><strong>Materi 3:</strong> Tokoh-Tokoh Penemu Dunia.</li>
+                </ul>
+                <p><i>Contoh: Setelah membaca materi-materi di atas, pengunjung bisa menguji pemahaman mereka dengan mengklik menu "Kuis Interaktif" di sidebar kiri.</i></p>
+            </div>
+
+            <div id="kuis" class="content-section">
+                <h2>Uji Pengetahuanmu!</h2>
+                <p>Jawablah pertanyaan di bawah ini dengan teliti. Skor dan koreksi akan langsung muncul setelah kamu selesai.</p>
+                
+                <iframe 
+                    class="kuis-iframe" 
+                    src="https://script.google.com/macros/s/AKfycbzZd587N-pufLkII1hMSTRrxItggMEGYtwahZ2LTRizH2JHFD-c5EAJ-4T_StQCZhjR_A/exec" 
+                    title="Kuis Interaktif">
+                </iframe>
+            </div>
+
+            <div id="tentang" class="content-section">
+                <h2>Tentang Website Ini</h2>
+                <p>Website ini dikembangkan menggunakan perpaduan HTML, CSS, JavaScript, dan backend sederhana dari Google Apps Script.</p>
+                <p><strong>Dihosting oleh:</strong> GitHub Pages (100% Gratis)</p>
+                <p>Teruslah belajar dan berkarya!</p>
+            </div>
+
+        </main>
     </div>
+
+    <script>
+        function bukaHalaman(idHalaman, elemenMenu) {
+            // 1. Sembunyikan semua section (konten di kanan)
+            let semuaKonten = document.querySelectorAll('.content-section');
+            semuaKonten.forEach(function(konten) {
+                konten.classList.remove('active-content');
+            });
+
+            // 2. Hilangkan warna aktif dari semua menu di sidebar
+            let semuaMenu = document.querySelectorAll('.menu-item');
+            semuaMenu.forEach(function(menu) {
+                menu.classList.remove('active');
+            });
+
+            // 3. Tampilkan section yang diklik
+            document.getElementById(idHalaman).classList.add('active-content');
+
+            // 4. Beri warna pada menu yang sedang diklik
+            elemenMenu.classList.add('active');
+        }
+    </script>
 
 </body>
 </html>
